@@ -72,39 +72,36 @@ public class Kirby_basic : MonoBehaviour
     // ジャンプ処理
     void Jump()
     {
+        // 最初の3回のジャンプ処理
         if (jumpCount < 3)
         {
-            // 最初の3回は通常通りジャンプ
-            if (transform.position.y < maxJumpHeight)  // maxJumpHeight を超えないように確認
-            {
-                rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
-                jumpCount++;
-            }
+            // 段階的にジャンプ力を増やし、maxJumpHeightに到達
+            float jumpForceForThisJump = Mathf.Lerp(0, maxJumpHeight - transform.position.y, jumpCount / 3f);
+            rb.AddForce(Vector3.up * jumpForceForThisJump, ForceMode.Impulse);
+            jumpCount++;
         }
-        else if (jumpCount >= 3 && transform.position.y < maxJumpHeight)
+        // 4回目から10回目まではmaxJumpHeightをキープ
+        else if (jumpCount >= 3 && jumpCount <= 10)
         {
-            // 4回目以降も maxJumpHeight を越えないように制限
-            float targetHeight = Mathf.Min(maxJumpHeight, transform.position.y + currentJumpForce);
-            if (transform.position.y < targetHeight)
-            {
-                rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
-                jumpCount++;
-            }
+            // maxJumpHeightに到達したら、ジャンプ力を固定して高さをキープ
+            rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
+            currentJumpForce = maxJumpHeight - transform.position.y; // maxJumpHeightに届かない場合にジャンプ力を調整
+            jumpCount++;
         }
-
-        // 10回までジャンプ力を一定にキープし、それ以降は徐々に下げる
-        if (jumpCount >= maxJumpCount)
+        // 11回目以降はジャンプ力が減少して落下
+        else if (jumpCount > 10)
         {
-            currentJumpForce = Mathf.Lerp(currentJumpForce, 0f, 0.1f); // 徐々にジャンプ力を減少
-            canFall = true;  // 10回ジャンプ後は落下フラグを立てる
-            canJump = false; // 10回ジャンプ後はジャンプできない
+            // 徐々にジャンプ力を減少させる
+            currentJumpForce = Mathf.Lerp(currentJumpForce, 0f, 0.1f); // ジャンプ力を減少
+            rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
+            jumpCount++;
         }
 
         // Y座標が maxJumpHeight を超えないように制限（位置と速度を両方制御）
         if (transform.position.y >= maxJumpHeight)
         {
             // Y軸方向の速度を手動で調整
-            Vector3 velocity = rb.linearVelocity; // 修正: `linearVelocity` -> `velocity`
+            Vector3 velocity = rb.linearVelocity;
             velocity.y = Mathf.Min(velocity.y, 0); // 上方向の速度を0にキャンセル
             rb.linearVelocity = velocity;
 
