@@ -75,18 +75,21 @@ public class Kirby_basic : MonoBehaviour
         if (jumpCount < 3)
         {
             // 最初の3回は通常通りジャンプ
-            rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
-            jumpCount++;
+            if (transform.position.y < maxJumpHeight)  // maxJumpHeight を超えないように確認
+            {
+                rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
+                jumpCount++;
+            }
         }
         else if (jumpCount >= 3 && transform.position.y < maxJumpHeight)
         {
-            // 4回目以降は高さが maxJumpHeight を越えないように制限
+            // 4回目以降も maxJumpHeight を越えないように制限
             float targetHeight = Mathf.Min(maxJumpHeight, transform.position.y + currentJumpForce);
             if (transform.position.y < targetHeight)
             {
                 rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
+                jumpCount++;
             }
-            jumpCount++;
         }
 
         // 10回までジャンプ力を一定にキープし、それ以降は徐々に下げる
@@ -97,18 +100,20 @@ public class Kirby_basic : MonoBehaviour
             canJump = false; // 10回ジャンプ後はジャンプできない
         }
 
-        // 高さが maxJumpHeight を超えたら、制限
+        // Y座標が maxJumpHeight を超えないように制限（位置と速度を両方制御）
         if (transform.position.y >= maxJumpHeight)
         {
             // Y軸方向の速度を手動で調整
-            Vector3 velocity = rb.linearVelocity;
-            velocity.y = Mathf.Min(velocity.y, 0); // Y軸の速度が正なら0に設定（上方向の力をキャンセル）
+            Vector3 velocity = rb.linearVelocity; // 修正: `linearVelocity` -> `velocity`
+            velocity.y = Mathf.Min(velocity.y, 0); // 上方向の速度を0にキャンセル
             rb.linearVelocity = velocity;
 
-            // 位置もmaxJumpHeightで強制的に制限
+            // 位置も maxJumpHeight で強制的に制限
             transform.position = new Vector3(transform.position.x, maxJumpHeight, transform.position.z);
         }
     }
+
+
 
 
     // 地面に接しているかを確認するための判定
