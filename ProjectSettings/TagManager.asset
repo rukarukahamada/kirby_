@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ground
   - enemy
+  - enemy_ranger
+  - enemy_sleep
   layers:
   - Default
   - TransparentFX
