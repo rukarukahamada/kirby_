@@ -92,7 +92,7 @@ namespace Assets.Scripts
             {
                 // 段階的にジャンプ力を増やし、maxJumpHeightに到達
                 float jumpForceForThisJump = Mathf.Lerp(0, maxJumpHeight - transform.position.y, jumpCount / 3f);
-                rb.AddForce(Vector3.up * jumpForceForThisJump, ForceMode.Impulse);
+                //rb.AddForce(Vector3.up * jumpForceForThisJump, ForceMode.Impulse);
                 jumpCount++;
             }
             // 4回目から10回目まではmaxJumpHeightをキープ

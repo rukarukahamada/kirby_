@@ -37,7 +37,7 @@ public class E_beas : MonoBehaviour
     // この関数は他のスクリプト（例：プレイヤーの攻撃）から呼び出される
     public void TakeDamage(int damage)
     {
-        StartCoroutine(DieAnimation());
+       
         // 現在のHPからダメージ量を引く
         currentHealth -= damage;
 
