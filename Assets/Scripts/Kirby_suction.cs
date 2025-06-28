@@ -51,11 +51,13 @@ public class KirbySuction : MonoBehaviour
     private void TrySuckObjects()
     {
         RaycastHit hit;
+        bool hasSucked = false; // 吸い込みが成功したかを判定するフラグ
+
         // プレイヤーの前方にRayを飛ばす
         if (Physics.Raycast(playerTransform.position, playerTransform.forward, out hit, maxDistance))
         {
             // ヒットしたオブジェクトが吸い込めるものであれば処理
-            if (hit.collider.CompareTag("enemy")) // 吸い込む対象のタグを設定
+            if (hit.collider.CompareTag("enemy_ranger") || hit.collider.CompareTag("enemy_sleep")) // 吸い込む対象のタグを設定
             {
                 Vector3 direction = playerTransform.position - hit.collider.transform.position; // 吸い込む方向
                 hit.collider.attachedRigidbody.AddForce(direction.normalized * suctionForce); // 吸い込む力を加える
@@ -64,10 +66,25 @@ public class KirbySuction : MonoBehaviour
                 if (Vector3.Distance(hit.collider.transform.position, playerTransform.position) < destroyDistance)
                 {
                     Destroy(hit.collider.gameObject); // オブジェクトを削除
+
+                    // 吸い込んだのが enemy_ranger の場合は色を赤に変更
+                    if (hit.collider.CompareTag("enemy_ranger"))
+                    {
+                        hasSucked = true; // 吸い込みが成功したフラグを立てる
+                    }
                 }
             }
         }
+
+        // 吸い込みが成功したら色を赤に変更
+        if (hasSucked)
+        {
+            ChangePlayerColor(Color.red); // キャラクターの色を赤に変更
+        }
     }
+
+
+
 
     private void ShowSuctionRange(bool isActive)
     {
