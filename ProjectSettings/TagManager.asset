@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ground
   - enemy
+  - enemy_nodiy
+  - enemy_ba-na-do
   layers:
   - Default
   - TransparentFX

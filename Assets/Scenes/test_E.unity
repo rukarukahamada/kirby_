@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 192184349}
   m_Layer: 0
   m_Name: E_ba-na-do
-  m_TagString: Untagged
+  m_TagString: enemy_ba-na-do
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 1635064210}
   m_Layer: 0
   m_Name: E_nodiy
-  m_TagString: Untagged
+  m_TagString: enemy_nodiy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

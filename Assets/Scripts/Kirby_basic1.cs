@@ -135,7 +135,7 @@ public class Kirby_basic1 : MonoBehaviour
             canJump = true; // 地面に着地したらジャンプ可能に戻す
         }
 
-        if (collision.collider.CompareTag("enemy") && !isBlinking)
+        if ((collision.collider.CompareTag("enemy_nodiy") || collision.collider.CompareTag("enemy_ba-na-do")) && !isBlinking)
         {
             TakeDamage(10); // プレイヤーに10ダメージを与える
             blinkCoroutine = StartCoroutine(BlinkRenderer());
