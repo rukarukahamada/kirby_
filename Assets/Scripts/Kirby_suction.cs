@@ -48,26 +48,44 @@ public class KirbySuction : MonoBehaviour
         }
     }
 
+    private Vector3 lastInputDirection = Vector3.forward; // 初期方向（前）
+
     private void TrySuckObjects()
     {
-        RaycastHit hit;
-        // プレイヤーの前方にRayを飛ばす
-        if (Physics.Raycast(playerTransform.position, playerTransform.forward, out hit, maxDistance))
-        {
-            // ヒットしたオブジェクトが吸い込めるものであれば処理
-            if (hit.collider.CompareTag("enemy")) // 吸い込む対象のタグを設定
-            {
-                Vector3 direction = playerTransform.position - hit.collider.transform.position; // 吸い込む方向
-                hit.collider.attachedRigidbody.AddForce(direction.normalized * suctionForce); // 吸い込む力を加える
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        Vector3 inputDirection = new Vector3(h, 0, v).normalized;
 
-                // 吸い込まれたオブジェクトが一定の距離に近づいたら削除
+        // 入力があったときだけ更新
+        if (inputDirection != Vector3.zero)
+        {
+            lastInputDirection = inputDirection;
+        }
+
+        RaycastHit hit;
+        Vector3 origin = playerTransform.position;
+        Vector3 direction = lastInputDirection;
+
+        if (Physics.Raycast(origin, direction, out hit, maxDistance))
+        {
+            if (hit.collider.CompareTag("enemy"))
+            {
+                Vector3 toPlayer = playerTransform.position - hit.collider.transform.position;
+                if (hit.collider.attachedRigidbody != null)
+                {
+                    hit.collider.attachedRigidbody.AddForce(toPlayer.normalized * suctionForce);
+                }
+
                 if (Vector3.Distance(hit.collider.transform.position, playerTransform.position) < destroyDistance)
                 {
-                    Destroy(hit.collider.gameObject); // オブジェクトを削除
+                    Destroy(hit.collider.gameObject);
                 }
             }
         }
     }
+
+
+
 
     private void ShowSuctionRange(bool isActive)
     {

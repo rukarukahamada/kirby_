@@ -1985,9 +1985,10 @@ GameObject:
   - component: {fileID: 1615000700}
   - component: {fileID: 1615000699}
   - component: {fileID: 1615000698}
-  - component: {fileID: 1615000697}
+  - component: {fileID: 1615000704}
   - component: {fileID: 1615000696}
   - component: {fileID: 1615000703}
+  - component: {fileID: 1615000705}
   m_Layer: 0
   m_Name: Kirby
   m_TagString: Player
@@ -2013,24 +2014,6 @@ MonoBehaviour:
   playerTransform: {fileID: 1615000702}
   suctionRangeColliderPrefab: {fileID: 0}
   suctionColor: {r: 0.18597841, g: 0, b: 1, a: 1}
---- !u!114 &1615000697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615000695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd00fc63d4752c144beae9b019bb43a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 5
-  JumpForce: 4
-  hp: 100
-  maxJumpCount: 10
-  gravityMultiplier: 1
-  maxJumpHeight: 10
 --- !u!54 &1615000698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2057,7 +2040,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 122
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &1615000699
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2102,7 +2085,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 514f61a45dd758e4a91144ffdca4aa32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2157,6 +2140,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fac040484683f1e46bfb5632bb43ef85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageOnFall: 20
+--- !u!114 &1615000704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615000695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a41b8c634a43c40aa604c3cea414d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 5
+  JumpForce: 4
+  hp: 100
+  maxJumpCount: 10
+  gravityMultiplier: 1
+  maxJumpHeight: 10
+--- !u!114 &1615000705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615000695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff34a7b4b6167b498d547b0fcc01a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1615576923

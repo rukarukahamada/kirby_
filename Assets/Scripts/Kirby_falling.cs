@@ -3,45 +3,59 @@ using UnityEngine;
 
 public class Kirby_falling : MonoBehaviour
 {
-    // スタート地点
     private Vector3 startPosition;
-
-    // 落下したかどうかのフラグ
     private bool isFalling;
+
+    private Kirby_basic1 kirbyScript; // HP管理用スクリプトへの参照
+
+    public int damageOnFall = 20; // 落下時に受けるダメージ量
 
     void Start()
     {
-        // スタート地点を記録
         startPosition = transform.position;
         isFalling = false;
+
+        // 同じGameObjectにあるKirby_basicを取得
+        kirbyScript = GetComponent<Kirby_basic1>();
+
+        // 念のため、見つからなかったときにエラー表示
+        if (kirbyScript == null)
+        {
+            Debug.LogError("Kirby_basic スクリプトが見つかりません！");
+        }
+        else
+        {
+            Debug.Log("Kirby_basic スクリプトを取得しました！");
+        }
+
     }
 
     void Update()
     {
-        // プレイヤーが落下しているかどうかを判定（例：Y座標がある値以下なら落下）
-        if (transform.position.y < -10f && !isFalling) // 例えばY座標が-10未満なら落下したと判定
+        if (transform.position.y < -10f && !isFalling)
         {
             isFalling = true;
+
+            // HPを減らす処理を追加
+            if (kirbyScript != null)
+            {
+                kirbyScript.TakeDamage(damageOnFall);
+            }
+
             ResetPlayerPosition();
         }
     }
 
-    // プレイヤーをスタート地点に戻す関数
     void ResetPlayerPosition()
     {
-        // スタート地点にプレイヤーを戻す
         transform.position = startPosition;
-
-        // ここで一定時間待ってからフラグをリセットする
         StartCoroutine(ResetFallingFlag());
     }
 
-    // フラグをリセットするためのコルーチン
     IEnumerator ResetFallingFlag()
     {
-        // 少し待機（例えば0.5秒）してからフラグをリセット
         yield return new WaitForSeconds(0.5f);
         isFalling = false;
-        Debug.Log("プレイヤーが落下してスタート地点に戻りました。");
+        Debug.Log("プレイヤーが落下してスタート地点に戻り、ダメージを受けました。");
     }
 }

@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 505063400}
   - component: {fileID: 505063399}
   - component: {fileID: 505063398}
-  - component: {fileID: 505063397}
+  - component: {fileID: 505063403}
   - component: {fileID: 505063396}
   m_Layer: 0
   m_Name: Kirby
@@ -416,24 +416,6 @@ MonoBehaviour:
   playerTransform: {fileID: 505063402}
   suctionRangeColliderPrefab: {fileID: 0}
   suctionColor: {r: 0.18597841, g: 0, b: 1, a: 1}
---- !u!114 &505063397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505063395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd00fc63d4752c144beae9b019bb43a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 5
-  JumpForce: 4
-  hp: 100
-  maxJumpCount: 10
-  gravityMultiplier: 1
-  maxJumpHeight: 10
 --- !u!54 &505063398
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -550,6 +532,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &505063403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505063395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a41b8c634a43c40aa604c3cea414d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 5
+  JumpForce: 4
+  hp: 100
+  maxJumpCount: 10
+  gravityMultiplier: 1
+  maxJumpHeight: 10
 --- !u!1 &822598170
 GameObject:
   m_ObjectHideFlags: 0
