@@ -10,7 +10,7 @@ public class Goal : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // プレイヤーとの接触を確認
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("ka-bi"))
         {
             // シーンを切り替え
             SceneManager.LoadScene("GAMECLEAR");

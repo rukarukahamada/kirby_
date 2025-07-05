@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - enemy_nodiy
   - enemy_ba-na-do
+  - ka-bi
   layers:
   - Default
   - TransparentFX

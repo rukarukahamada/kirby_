@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 505063396}
   - component: {fileID: 505063405}
   - component: {fileID: 505063404}
+  - component: {fileID: 505063406}
   m_Layer: 0
   m_Name: Kirby
   m_TagString: Untagged
@@ -732,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0228908ff13774faa50dea800e43e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 7072502285491892068, guid: b3c714b185d1a3e4d83b6d0865541bfe, type: 3}
+  projectilePrefab: {fileID: 4555551981568839004, guid: ca5f565776e4bd547baa68422e86d1fd, type: 3}
   shotPoint: {fileID: 458804552}
   shotForce: 700
   cooldownTime: 0.5
@@ -748,6 +749,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff34a7b4b6167b498d547b0fcc01a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &505063406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505063395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac26487994d44954aa048b6ef9c7625b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &822598170
 GameObject:
   m_ObjectHideFlags: 0
