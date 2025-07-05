@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class KirbySuction : MonoBehaviour
 {
-    public float suctionForce = 2f; // 吸い込む力の強さ
+    public float suctionForce = 3f; // 吸い込む力の強さ
     public float maxDistance = 5f; // 吸い込む最大距離
-    public float destroyDistance = 1f; // 吸い込むオブジェクトが消える距離
+    public float destroyDistance = 1.5f; // 吸い込むオブジェクトが消える距離
     public Transform playerTransform; // プレイヤーのTransform
     public GameObject suctionRangeColliderPrefab; // 吸い込む範囲のCollider（Prefab）
     public Color suctionColor = Color.blue; // 吸い込み時のキャラクターの色
@@ -12,6 +12,8 @@ public class KirbySuction : MonoBehaviour
 
     private GameObject suctionRangeColliderInstance; // 実際に表示するColliderのインスタンス
     private Renderer playerRenderer; // プレイヤーのRenderer
+    private bool hasSuckedEnemy = false; // enemy_ba-na-doを吸い込んだかどうかを判定するフラグ
+    private bool hasSuckedNodiy = false; // enemy_nodiyを吸い込んだかどうかを判定するフラグ
 
     private void Start()
     {
@@ -52,7 +54,6 @@ public class KirbySuction : MonoBehaviour
         }
     }
 
-
     private void Update()
     {
         if (playerRenderer == null)
@@ -66,12 +67,20 @@ public class KirbySuction : MonoBehaviour
         {
             TrySuckObjects();
             ShowSuctionRange(true); // 吸い込み範囲を表示
-            ChangePlayerColor(suctionColor); // キャラクターの色を変更
+            if (!hasSuckedEnemy && !hasSuckedNodiy) // 吸い込み中で、敵を吸い込んでいない場合
+            {
+                ChangePlayerColor(suctionColor); // 吸い込み中は青色
+            }
         }
         else
         {
             ShowSuctionRange(false); // 吸い込み範囲を非表示
-            ChangePlayerColor(originalColor); // キャラクターの色を元に戻す
+
+            // 吸い込み解除時にフラグをリセット
+            if (!hasSuckedEnemy && !hasSuckedNodiy)
+            {
+                ChangePlayerColor(originalColor); // 元の色に戻す
+            }
         }
 
         // 吸い込み範囲をプレイヤーに合わせて移動
@@ -80,9 +89,6 @@ public class KirbySuction : MonoBehaviour
             suctionRangeColliderInstance.transform.position = playerTransform.position + playerTransform.forward * (maxDistance / 2);
         }
     }
-
-
-    private Vector3 lastInputDirection = Vector3.forward; // 初期方向（前）
 
     private void TrySuckObjects()
     {
@@ -118,6 +124,19 @@ public class KirbySuction : MonoBehaviour
                 {
                     Destroy(hit.collider.gameObject);
                     Debug.Log("Enemy destroyed: " + hit.collider.name);  // 消えたオブジェクトのログ
+
+                    // 「enemy_ba-na-do」のタグを持つ敵を吸い込んだら、プレイヤーを赤色に変更
+                    if (hit.collider.CompareTag("enemy_ba-na-do"))
+                    {
+                        hasSuckedEnemy = true; // 吸い込んだ敵が「enemy_ba-na-do」である場合、フラグを立てる
+                        ChangePlayerColor(Color.red); // プレイヤーを赤色に変更
+                    }
+                    // 「enemy_nodiy」のタグを持つ敵を吸い込んだら、プレイヤーを緑色に変更
+                    else if (hit.collider.CompareTag("enemy_nodiy"))
+                    {
+                        hasSuckedNodiy = true; // 吸い込んだ敵が「enemy_nodiy」である場合、フラグを立てる
+                        ChangePlayerColor(Color.green); // プレイヤーを緑色に変更
+                    }
                 }
             }
         }
@@ -142,7 +161,6 @@ public class KirbySuction : MonoBehaviour
             playerRenderer.material.color = color; // 直接色を変更
         }
     }
-
 
     // 吸い込み範囲を視覚化するためにGizmosを描画（エディタでのみ動作）
     private void OnDrawGizmos()
